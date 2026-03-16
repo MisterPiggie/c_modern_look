@@ -5,18 +5,18 @@
 
 int main(void)
 {
-    int i = 0, j = 0;
     char ch, message[MAX_CHAR];
+    char *p = message, *q = message;
     printf("Enter a message: ");
-    while ((ch = getchar()) != '\n' && i != MAX_CHAR)
+    while ((ch = getchar()) != '\n' && p != message + MAX_CHAR)
     {
         if (isalpha(ch))
-            message[i++] = toupper(ch);
+            *p++ = toupper(ch);
     }
-    i--;
-    while (j < i)
+    p--;
+    while (q < p)
     {
-        if (message[j++] != message[i--])
+        if (*q++ != *p--)
         {
             printf("Not a palindrome\n");
             return 0;
