@@ -8,6 +8,7 @@
 char contents[STACK_SIZE];
 int top = 0;
 
+int evaluate_RPN_expression(const char *message);
 void stack_overflow(void)
 {
     printf("expression is too complex\n");
@@ -79,7 +80,7 @@ void operator(char ch)
 
 int main(void)
 {
-    char ch;
+    char ch, *message;
     while (true) {
 
         printf("Enter an RPN expression: ");
