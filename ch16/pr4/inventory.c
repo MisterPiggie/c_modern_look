@@ -11,6 +11,7 @@ struct part
     int number;
     char name[NAME_LEN+1];
     int on_hand;
+    int price;
 };
 
 
@@ -19,6 +20,7 @@ int find_parts(int number, struct part inventory[], int num_parts);
 void insert(struct part inventory[], int *num_parts);
 void search(struct part inventory[], int num_parts);
 void update(struct part inventory[], int num_parts);
+void update_price(struct part inventory[], int num_parts);
 void print(struct part inventory[], int num_parts);
 
 
@@ -86,6 +88,9 @@ void insert(struct part inventory[], int *num_parts)
 
     printf("Enter quantity on hand: ");
     scanf("%d", &inventory[*num_parts].on_hand);
+    printf("Enter price: ");
+    scanf("%d", &inventory[*num_parts].price);
+
     *num_parts += 1;
 }
 
@@ -102,6 +107,7 @@ void search(struct part inventory[], int num_parts)
     {
         printf("Part name: %s\n", inventory[i].name);
         printf("Quantity on hand: %d\n", inventory[i].on_hand);
+        printf("Price of item %d$\n", inventory[i].price);
     } else
         printf("Part not found.\n");
 }
@@ -121,6 +127,21 @@ void update(struct part inventory[], int num_parts)
         printf("Part not found.\n");
 }
 
+void update_price(struct part inventory[], int num_parts)
+{
+    int i, number, change;
+    printf("Enter part number: ");
+    scanf("%d", &number);
+    i = find_parts(number, inventory, num_parts);
+    if (i >= 0)
+    {
+        printf("Enter change in price: ");
+        scanf("%d", &change);
+        inventory[i].price += change;
+    } else
+        printf("Part not found.\n");
+}
+
 void print(struct part inventory[], int num_parts)
 
 {
@@ -132,5 +153,5 @@ void print(struct part inventory[], int num_parts)
     }
     printf("Part Number  Part Name              Quantity on Hand\n");
     for (i = 0; i < num_parts; i++)
-        printf("%7d       %-25s%11d\n", inventory[i].number, inventory[i].name, inventory[i].on_hand);
+        printf("%7d       %-25s%11d%7d$\n", inventory[i].number, inventory[i].name, inventory[i].on_hand, inventory[i].price);
 }

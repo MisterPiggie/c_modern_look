@@ -1,25 +1,8 @@
 #include <stdio.h>
 #include "readline.h"
+#include "quicksort.h"
+#include "inventory.h"
 
-
-#define NAME_LEN 25
-#define MAX_PARTS 100
-
-
-struct part 
-{
-    int number;
-    char name[NAME_LEN+1];
-    int on_hand;
-};
-
-
-
-int find_parts(int number, struct part inventory[], int num_parts);
-void insert(struct part inventory[], int *num_parts);
-void search(struct part inventory[], int num_parts);
-void update(struct part inventory[], int num_parts);
-void print(struct part inventory[], int num_parts);
 
 
 int main(void)
@@ -130,6 +113,7 @@ void print(struct part inventory[], int num_parts)
         printf("No entries in database.");
         return;
     }
+    quicksort(inventory, 0, num_parts-1);
     printf("Part Number  Part Name              Quantity on Hand\n");
     for (i = 0; i < num_parts; i++)
         printf("%7d       %-25s%11d\n", inventory[i].number, inventory[i].name, inventory[i].on_hand);
