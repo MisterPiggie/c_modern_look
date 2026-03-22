@@ -1,18 +1,16 @@
 #include <stdlib.h>
-struct node *delete_from_list(struct node *list, int n)
+void *delete_from_list(struct node **list, int n)
 {
-    struct node *cur, *prev;
-
-    for (cur = list, prev = NULL;
-         cur != NULL && cur -> value != n;
-         prev = cur, cur = cur -> next);
-
-    if (cur == NULL)
-        return list;
-    if (prev == NULL)
-        list = list -> next;
-    else 
-        prev -> next = cur -> next;
-    free(cur);
-    return list;
+    struct node *item = *list;
+    while (item)
+    {
+        if (item -> value == n)
+        {
+            *list = item -> next;
+            free(item);
+            break;
+        }
+        list = &item -> next;
+        item = item -> next;
+    }
 }
